@@ -18,7 +18,7 @@ hide_st_style = """
             [data-testid="stDecoration"] {visibility: hidden !important;}
             </style>
             """
-st.markdown(hide_st_style, unsafe_ hely_html=True)
+st.markdown(hide_st_style, unsafe_allow_html=True)
 
 if 'aktualni_stranka' not in st.session_state:
     st.session_state.aktualni_stranka = 'Menu'
@@ -43,12 +43,11 @@ if st.session_state.aktualni_stranka == 'Menu':
             st.session_state.aktualni_stranka = 'MrtvyMuz'
             st.rerun()
     with col3:
-        if st.button("🌊 Atlantis", use_container_width=True):
+        if st.button("🌊 atlantis", use_container_width=True):
             st.session_state.aktualni_stranka = 'Atlantis'
             st.rerun()
             
     st.divider()
-    # TOTO JE TA ZMĚNA: Rady přímo na hlavní stránce pro všechny
     st.info("ℹ️ **Jak na pravidla a rady:**")
     st.write("Klikněte na hru výše. Poté uvidíte pravidla a v levém menu (na mobilu pod ikonou čárek v rohu) najdete strategické tipy pro nováčky.")
     st.stop()
@@ -71,5 +70,5 @@ elif st.session_state.aktualni_stranka == 'MrtvyMuz':
         exec(f.read(), globals())
 
 elif st.session_state.aktualni_stranka == 'Atlantis':
-    with open("Atlantis.py", encoding="utf-8") as f:
+    with open("atlantis.py", encoding="utf-8") as f:
         exec(f.read(), globals())
