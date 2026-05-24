@@ -142,31 +142,28 @@ if st.session_state.aktualni_stranka == 'Menu':
     # ==========================================
     # TAJNÁ ADMINISTRACE (Pro čtení připomínek)
     # ==========================================
-    st.write("")
+  st.write("")
     with st.expander("🔒 Tajná administrace"):
         heslo = st.text_input("Zadejte heslo:", type="password")
         
-        # Zde si můžeš heslo změnit z "12345" na cokoliv jiného
-        if heslo == "Avesonn": 
+        # Ověření přes tajné úložiště Streamlitu
+        if heslo == st.secrets["ADMIN_HESLO"]: 
             st.success("Přístup povolen.")
             
             st.subheader("📝 Přijaté připomínky:")
             try:
                 with open("pripominky.txt", "r", encoding="utf-8") as f:
-                    obsah_pripominek = f.read()
-                    if obsah_pripominek.strip() == "":
-                        st.write("Zatím tu nic není.")
-                    else:
-                        st.text(obsah_pripominek)
+                    obsah = f.read()
+                    st.text(obsah if obsah.strip() else "Zatím tu nic není.")
             except FileNotFoundError:
-                st.write("Zatím tu nic není (soubor se vytvoří až s první zprávou).")
+                st.write("Zatím tu nic není.")
                 
             st.divider()
             st.subheader("📊 Statistiky:")
             try:
                 with open("pocitadlo.txt", "r") as f:
-                    st.write(f"Celkový počet načtení stránky: **{f.read().strip()}**")
-            except FileNotFoundError:
+                    st.write(f"Počet načtení: **{f.read().strip()}**")
+            except:
                 st.write("Počítadlo zatím nemá data.")
                 
         elif heslo != "":
