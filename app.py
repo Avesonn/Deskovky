@@ -1,7 +1,7 @@
 import streamlit as st
 import os
 
-# Konfigurace - layout="wide" zajistí roztažení na celou šířku PC
+# 1. Konfigurace (layout="wide" je základ)
 st.set_page_config(
     page_title="Moje Deskovky", 
     page_icon="🎲", 
@@ -9,20 +9,29 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# OPRAVENÉ CSS:
-# 1. Necháme hlavičku (header) existovat, jinak se vše zúží.
-# 2. Skryjeme jen tlačítka "Deploy" a "View Source", která tě štvala.
-hide_st_style = """
-            <style>
-            #MainMenu {visibility: hidden;}
-            header {visibility: visible;} 
-            footer {visibility: hidden;}
-            [data-testid="stToolbar"] {visibility: hidden !important;}
-            [data-testid="stDecoration"] {visibility: hidden !important;}
-            </style>
-            """
-st.markdown(hide_st_style, unsafe_allow_html=True)
+# Deaktivace set_page_config pro podřazené soubory
+st.set_page_config = lambda *args, **kwargs: None
 
+# ==========================================
+# OPRAVENÉ CSS - ŠÍŘKA A MENU
+# ==========================================
+css_finta = """
+<style>
+/* 1. Vynutí široké zobrazení na PC (roztáhne to až do krajů) */
+.block-container {
+    max-width: 95rem !important;
+    padding-top: 2rem !important;
+}
+
+/* 2. Bezpečné skrytí: Schová jen horní nástroje a patičku, NECHÁ tlačítko menu! */
+[data-testid="stToolbar"] {display: none !important;}
+#MainMenu {display: none !important;}
+footer {display: none !important;}
+</style>
+"""
+st.markdown(css_finta, unsafe_allow_html=True)
+
+# Paměť stavu
 if 'aktualni_stranka' not in st.session_state:
     st.session_state.aktualni_stranka = 'Menu'
 
@@ -51,23 +60,17 @@ if st.session_state.aktualni_stranka == 'Menu':
             st.rerun()
             
     st.divider()
-    st.info("ℹ️ **Navigace:** Po výběru hry hledejte strategické tipy v levém bočním panelu.")
+    st.info("ℹ️ **Navigace:** Po výběru hry najdete strategické tipy v postranním panelu (na mobilu vlevo nahoře pod ikonou menu).")
     st.stop()
 
 # ==========================================
-# SIDEBAR (Boční panel pro rady)
+# BOČNÍ PANEL A HRY
 # ==========================================
 with st.sidebar:
     st.subheader("📋 RADY PRO HRÁČE")
-    if st.button("⬅️ Zpět na hlavní menu", use_container_width=True):
-        st.session_state.aktualni_stranka = 'Menu'
-        st.rerun()
+    st.button("⬅️ Zpět na hlavní menu", on_click=zpet_do_menu, use_container_width=True)
     st.markdown("---")
-    st.write("Zde najdete strategické tipy, které se mění podle vybrané hry.")
 
-# ==========================================
-# ZOBRAZENÍ KONKRÉTNÍ HRY
-# ==========================================
 if st.session_state.aktualni_stranka == 'Kocky':
     with open("Kocky.py", encoding="utf-8") as f:
         exec(f.read(), globals())
