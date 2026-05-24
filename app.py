@@ -1,7 +1,7 @@
 import streamlit as st
 import os
 
-# Konfigurace stránky
+# Konfigurace
 st.set_page_config(
     page_title="Moje Deskovky", 
     page_icon="🎲", 
@@ -9,7 +9,7 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# CSS pro skrytí nepotřebných lišt, ale ponechání funkčního menu
+# CSS pro skrytí nepotřebného
 hide_st_style = """
             <style>
             footer {visibility: hidden;}
@@ -18,9 +18,8 @@ hide_st_style = """
             [data-testid="stDecoration"] {visibility: hidden !important;}
             </style>
             """
-st.markdown(hide_st_style, unsafe_allow_html=True)
+st.markdown(hide_st_style, unsafe_ hely_html=True)
 
-# Inicializace stavu
 if 'aktualni_stranka' not in st.session_state:
     st.session_state.aktualni_stranka = 'Menu'
 
@@ -28,14 +27,10 @@ def zpet_do_menu():
     st.session_state.aktualni_stranka = 'Menu'
 
 # ==========================================
-# HLAVNÍ MENU (Rozcestník)
+# HLAVNÍ MENU
 # ==========================================
 if st.session_state.aktualni_stranka == 'Menu':
-    # Vizuální navádění pro hráče
-    st.info("💡 **Tipy a rady:** Pro zobrazení strategických rad klikněte vlevo nahoře na ikonu menu (čárky/šipka).")
-    
-    st.markdown("### 🎲 Dostupné hry - pro pravidla a rady klikněte na vybranou hru:")
-    st.write("") 
+    st.markdown("### 🎲 Vyberte hru:")
     
     col1, col2, col3 = st.columns(3)
     
@@ -43,31 +38,30 @@ if st.session_state.aktualni_stranka == 'Menu':
         if st.button("🐈 Ostrov Koček", use_container_width=True):
             st.session_state.aktualni_stranka = 'Kocky'
             st.rerun()
-            
     with col2:
         if st.button("🏴‍☠️ Karty mrtvého muže", use_container_width=True):
             st.session_state.aktualni_stranka = 'MrtvyMuz'
             st.rerun()
-            
     with col3:
         if st.button("🌊 atlantis", use_container_width=True):
             st.session_state.aktualni_stranka = 'Atlantis'
             st.rerun()
             
-    st.stop() # Zastaví vykreslování, aby se pod dlaždicemi neukázalo nic dalšího
+    st.divider()
+    # TOTO JE TA ZMĚNA: Rady přímo na hlavní stránce pro všechny
+    st.info("ℹ️ **Jak na pravidla a rady:**")
+    st.write("Klikněte na hru výše. Poté uvidíte pravidla a v levém menu (na mobilu pod ikonou čárek v rohu) najdete strategické tipy pro nováčky.")
+    st.stop()
 
 # ==========================================
-# BOČNÍ PANEL (Vždy přítomný)
+# SIDEBAR A HRY
 # ==========================================
 with st.sidebar:
     st.subheader("📋 RADY PRO HRÁČE")
     st.button("⬅️ Zpět na hlavní menu", on_click=zpet_do_menu, use_container_width=True)
     st.markdown("---")
-    st.write("Zde najdete strategické tipy, které se dynamicky mění podle toho, jakou hru zrovna prohlížíte.")
+    st.write("Zde najdete strategické tipy, které se dynamicky mění podle hry.")
 
-# ==========================================
-# ZOBRAZENÍ KONKRÉTNÍ HRY
-# ==========================================
 if st.session_state.aktualni_stranka == 'Kocky':
     with open("Kocky.py", encoding="utf-8") as f:
         exec(f.read(), globals())
