@@ -63,5 +63,5 @@ elif st.session_state.aktualni_stranka == 'MrtvyMuz':
         exec(f.read(), globals())
 
 elif st.session_state.aktualni_stranka == 'atlantis':
-    with open("Atlantis.py", encoding="utf-8") as f:
+    with open("atlantis.py", encoding="utf-8") as f:
         exec(f.read(), globals())
