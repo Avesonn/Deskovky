@@ -1,7 +1,7 @@
 import streamlit as st
 import os
 
-# 1. Konfigurace (layout="wide" je základ)
+# Konfigurace - layout="wide" zajistí roztažení na celou šířku PC
 st.set_page_config(
     page_title="Moje Deskovky", 
     page_icon="🎲", 
@@ -9,23 +9,23 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# Deaktivace set_page_config pro podřazené soubory
+# Deaktivace set_page_config pro tvé podřazené soubory s hrami
 st.set_page_config = lambda *args, **kwargs: None
 
 # ==========================================
-# OPRAVENÉ CSS - ŠÍŘKA A MENU
+# OPRAVENÉ CSS - ŠÍŘKA A MOBILNÍ MENU
 # ==========================================
 css_finta = """
 <style>
-/* 1. Vynutí široké zobrazení na PC (roztáhne to až do krajů) */
+/* 1. Vynutí široké zobrazení na PC (roztáhne obsah) */
 .block-container {
     max-width: 95rem !important;
     padding-top: 2rem !important;
 }
 
-/* 2. Bezpečné skrytí: Schová jen horní nástroje a patičku, NECHÁ tlačítko menu! */
-[data-testid="stToolbar"] {display: none !important;}
-#MainMenu {display: none !important;}
+/* 2. Skryjeme POUZE tlačítko Deploy a patičku. 
+      Celé menu necháváme být, aby se na mobilu ukázala ikonka pro otevření rad! */
+.stDeployButton {display: none !important;}
 footer {display: none !important;}
 </style>
 """
