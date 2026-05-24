@@ -43,7 +43,7 @@ if st.session_state.aktualni_stranka == 'Menu':
             
     with col3:
         if st.button("🌊 atlantis", use_container_width=True):
-            st.session_state.aktualni_stranka = 'Atlantis'
+            st.session_state.aktualni_stranka = 'atlantis'
             st.rerun()
             
     st.stop()
@@ -62,6 +62,6 @@ elif st.session_state.aktualni_stranka == 'MrtvyMuz':
     with open("Karty.py", encoding="utf-8") as f:
         exec(f.read(), globals())
 
-elif st.session_state.aktualni_stranka == 'Atlantis':
+elif st.session_state.aktualni_stranka == 'atlantis':
     with open("Atlantis.py", encoding="utf-8") as f:
         exec(f.read(), globals())
