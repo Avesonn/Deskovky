@@ -146,8 +146,8 @@ if st.session_state.aktualni_stranka == 'Menu':
     with st.expander("🔒 Tajná administrace"):
         heslo = st.text_input("Zadejte heslo:", type="password")
         
-        # Zde si můžeš heslo změnit z "12345" na cokoliv jiného
-        if heslo == "12345": 
+        # Ověření přes tajné úložiště Streamlitu
+        if heslo == st.secrets["ADMIN_HESLO"]: 
             st.success("Přístup povolen.")
             
             st.subheader("📝 Přijaté připomínky:")
