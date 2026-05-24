@@ -69,7 +69,6 @@ else:
 # Vykreslení počítadla na obrazovku
 st.markdown(f'<div class="pocitadlo">Zobrazení stránky: {st.session_state.aktualni_pocet}</div>', unsafe_allow_html=True)
 
-
 # ==========================================
 # PAMĚŤ STAVU A NAVIGACE
 # ==========================================
@@ -140,7 +139,40 @@ if st.session_state.aktualni_stranka == 'Menu':
                         f.write(f"[{dnes}] {text_pripominky}\n---\n")
                     st.success("Díky! Vaše připomínka byla v pořádku odeslána a uložena.")
 
-    st.stop()
+    # ==========================================
+    # TAJNÁ ADMINISTRACE (Pro čtení připomínek)
+    # ==========================================
+    st.write("")
+    with st.expander("🔒 Tajná administrace"):
+        heslo = st.text_input("Zadejte heslo:", type="password")
+        
+        # Zde si můžeš heslo změnit z "12345" na cokoliv jiného
+        if heslo == "Avesonn": 
+            st.success("Přístup povolen.")
+            
+            st.subheader("📝 Přijaté připomínky:")
+            try:
+                with open("pripominky.txt", "r", encoding="utf-8") as f:
+                    obsah_pripominek = f.read()
+                    if obsah_pripominek.strip() == "":
+                        st.write("Zatím tu nic není.")
+                    else:
+                        st.text(obsah_pripominek)
+            except FileNotFoundError:
+                st.write("Zatím tu nic není (soubor se vytvoří až s první zprávou).")
+                
+            st.divider()
+            st.subheader("📊 Statistiky:")
+            try:
+                with open("pocitadlo.txt", "r") as f:
+                    st.write(f"Celkový počet načtení stránky: **{f.read().strip()}**")
+            except FileNotFoundError:
+                st.write("Počítadlo zatím nemá data.")
+                
+        elif heslo != "":
+            st.error("Špatné heslo!")
+
+    st.stop() # Zastaví vykreslování hlavní stránky, aby se neukazovaly další kódy
 
 # ==========================================
 # BOČNÍ PANEL A OTEVÍRÁNÍ HER
