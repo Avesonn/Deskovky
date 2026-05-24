@@ -142,35 +142,37 @@ if st.session_state.aktualni_stranka == 'Menu':
     # ==========================================
     # TAJNÁ ADMINISTRACE (Pro čtení připomínek)
     # ==========================================
-  st.write("")
+    st.write("")
     with st.expander("🔒 Tajná administrace"):
         heslo = st.text_input("Zadejte heslo:", type="password")
         
-        # Ověření přes tajné úložiště Streamlitu
-        if heslo == st.secrets["ADMIN_HESLO"]: 
+        # Zde si můžeš heslo změnit z "12345" na cokoliv jiného
+        if heslo == "12345": 
             st.success("Přístup povolen.")
             
             st.subheader("📝 Přijaté připomínky:")
             try:
                 with open("pripominky.txt", "r", encoding="utf-8") as f:
-                    obsah = f.read()
-                    st.text(obsah if obsah.strip() else "Zatím tu nic není.")
+                    obsah_pripominek = f.read()
+                    if obsah_pripominek.strip() == "":
+                        st.write("Zatím tu nic není.")
+                    else:
+                        st.text(obsah_pripominek)
             except FileNotFoundError:
-                st.write("Zatím tu nic není.")
+                st.write("Zatím tu nic není (soubor se vytvoří až s první zprávou).")
                 
             st.divider()
             st.subheader("📊 Statistiky:")
             try:
                 with open("pocitadlo.txt", "r") as f:
-                    st.write(f"Počet načtení: **{f.read().strip()}**")
-            except:
+                    st.write(f"Celkový počet načtení stránky: **{f.read().strip()}**")
+            except FileNotFoundError:
                 st.write("Počítadlo zatím nemá data.")
                 
         elif heslo != "":
             st.error("Špatné heslo!")
 
     st.stop() # Zastaví vykreslování hlavní stránky, aby se neukazovaly další kódy
-
 # ==========================================
 # BOČNÍ PANEL A OTEVÍRÁNÍ HER
 # ==========================================
