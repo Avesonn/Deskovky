@@ -9,9 +9,12 @@ st.set_page_config = lambda *args, **kwargs: None
 # ==========================================
 hide_st_style = """
             <style>
-            #MainMenu {visibility: hidden;}
+            /* Skryje jen prvky, které nepatří do menu */
+            #MainMenu {visibility: visible;} 
             footer {visibility: hidden;}
             header {visibility: hidden;}
+            [data-testid="stToolbar"] {visibility: hidden !important;}
+            [data-testid="stDecoration"] {visibility: hidden !important;}
             </style>
             """
 st.markdown(hide_st_style, unsafe_allow_html=True)
