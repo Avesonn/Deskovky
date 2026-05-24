@@ -63,7 +63,7 @@ if sekce_menu == "Přehled komponentů a karet":
         st.subheader("Herní materiál")
         col1, col2, col3, col4 = st.columns(4)
         with col1:
-            nahraj_obrazek("figurky.jpg", "30 figurek koček (slouží k označení barev a pořadí)")
+            nahraj_obrazek("Figurky.jpg", "30 figurek koček (slouží k označení barev a pořadí)")
             nahraj_obrazek("vethuv_clun.jpg", "1 Vethův člun (odpočítává čas do konce hry)")
         with col2:
             nahraj_obrazek("dilky_kocek.jpg", "85 dílků koček (polyomino tvary, které skládáte na loď)")
