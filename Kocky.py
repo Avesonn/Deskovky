@@ -17,6 +17,13 @@ def nahraj_obrazek(nazev_souboru, popisek):
 st.sidebar.header("💡 Strategické tipy pro nováčky")
 st.sidebar.markdown("Rozbalte si oblast, která vás zajímá:")
 
+with st.sidebar.expander("Na co jsou koše? 🧺"):
+    st.warning("""
+    **Tip ke košům:** Bez koše kočku nezachráníte (v holých rukách ji neunesete)! Na ulovení 1 kočky potřebujete vždy **1 koš** (a příslušný počet ryb). 
+    * Každý hráč má svůj **trvanlivý koš** (dřevěný žeton), který může použít jednou za den (poté ho otočí šedou stranou nahoru).
+    * Pokud chcete v jednom dni chytit více koček, musíte použít zelené karty z ruky: buď zahodit kartu s **celým košem**, nebo zkombinovat **dvě karty s poškozeným košem**, které teprve dohromady dají jeden celý.
+    """)
+
 with st.sidebar.expander("Proč zakrývat krysy? 🐀"):
     st.warning("""
     **Tip ke krysám:** Každá nezakrytá krysa na konci hry znamená **-1 bod**. 
@@ -63,7 +70,7 @@ if sekce_menu == "Přehled komponentů a karet":
         st.subheader("Herní materiál")
         col1, col2, col3, col4 = st.columns(4)
         with col1:
-            nahraj_obrazek("Figurky.jpg", "30 figurek koček (slouží k označení barev a pořadí)")
+            nahraj_obrazek("figurky.jpg", "30 figurek koček (slouží k označení barev a pořadí)")
             nahraj_obrazek("vethuv_clun.jpg", "1 Vethův člun (odpočítává čas do konce hry)")
         with col2:
             nahraj_obrazek("dilky_kocek.jpg", "85 dílků koček (polyomino tvary, které skládáte na loď)")
@@ -73,7 +80,7 @@ if sekce_menu == "Přehled komponentů a karet":
             nahraj_obrazek("oshaxove.jpg", "6 dílků oshaxů (velcí kočičí žolíci)")
         with col4:
             nahraj_obrazek("medene_poklady.jpg", "44 dílků měděných pokladů (na ucpávání mezer)")
-            nahraj_obrazek("trvanlive_kose.jpg", "10 žetonů trvanlivých košů")
+            nahraj_obrazek("trvanlive_kose.jpg", "10 žetonů trvanlivých košů (slouží k odlovu koček)")
 
     with tab2:
         st.subheader("Karty objevů – Srdce celé hry")
@@ -161,11 +168,17 @@ elif sekce_menu == "Podrobný průběh dne a Rychlost":
     """)
     
     st.error("""
-    **🚨 DŮLEŽITÉ PRAVIDLO PRO ODLOV KOČEK:**
-    Hráči se střídají po jedné kočce. Ve svém tahu můžete zachránit 1 kočku:
+    **🚨 DŮLEŽITÉ PRAVIDLO PRO ODLOV KOČEK (Hraje se na střídačku!):**
+    Neodehrajete všechno najednou! Odlov probíhá v cyklech:
+    1. Nejrychlejší hráč zachrání **pouze JEDNU kočku**. 
+    2. Poté hraje druhý nejrychlejší, který zachrání také **jednu kočku** (atd., až k nejpomalejšímu).
+    3. Jakmile se vystřídají všichni, kolo se opakuje – nejrychlejší zachraňuje svou *druhou* kočku, pak zase další... 
+    4. Takhle se točíte pořád dokola, dokud všichni hráči neohlásí, že pasují (protože už nemají koše, došly jim ryby, nebo už další kočky lovit nechtějí).
+    
+    **Co stojí 1 kočka:**
     * Kočka z **Levé zóny** stojí **3 ryby**.
     * Kočka z **Pravé zóny** stojí **5 ryb**.
-    * K odchytu musíte vyčerpat **1 koš** (otočit trvanlivý žeton, nebo zahodit kartu s jednorázovým košem, nebo zahodit dvě karty poškozených košů).
+    * K odchytu musíte mít **1 koš**. Můžete využít svůj **trvanlivý žeton koše**, nebo zahrát zelenou kartu s **celým košem**, případně zkombinovat dvě zelené karty s **poškozeným košem** (dvě půlky dají jeden koš).
     
     **Strategický tip:** Být první v pořadí (mít vysokou rychlost) se neuvěřitelně vyplatí, pokud je v levé zóně za levné 3 ryby přesně ten dílek, který potřebujete do své rodiny. Pokud jste pomalí, ostatní vám ty nejlepší tvary vyfouknou a vám zbudou jen ty, které se vám na loď nehodí.
     """)
@@ -181,18 +194,21 @@ elif sekce_menu == "Pravidla skládání":
     
     col1, col2 = st.columns(2)
     with col1:
-        st.subheader("Základní pravidla pokládání")
+        st.subheader("Základní pravidla pokládání (Tetris na lodi)")
         st.markdown("""
+        Ať už pokládáte barevnou kočku, zlatý či měděný poklad, nebo velkého Oshaxe, **platí pro všechny dílky stejná pravidla**:
+        
         * Dílky můžete libovolně natáčet a převracet (i rubovou stranou nahoru).
-        * **První dílek** můžete položit kamkoliv na loď.
-        * **Každý další dílek** musí alespoň jednou stranou čtverečku sousedit s jakýmkoliv dílkem, který už na lodi leží. Dotýkat se pouze rohem nestačí!
-        * Dílky nesmí přesahovat okraj lodi ani se překrývat.
+        * **První dílek**, který do hry položíte, může jít úplně kamkoliv na lodi.
+        * **Každý další dílek** se už musí alespoň jednou celou stranou čtverečku dotýkat nějakého dílku, který už na lodi leží. 
+        * 🚫 **Pozor:** Dotýkat se pouze rohem (šikmo) nestačí! Dílky na sebe musí navazovat celou hranou.
+        * Dílky se pochopitelně nesmí překrývat a nesmí čouhat přes okraj lodi do vody.
         """)
     with col2:
-        st.subheader("Bonusy za mapy 🗺️")
+        st.subheader("Bonusy za mapy a co jsou to Oshaxové 🗺️")
         st.markdown("""
-        Na lodi máte předtištěno 5 barevných map. Pokud na políčko s mapou položíte kočku **přesně téže barvy** (např. červená kočka zakryje červenou mapu), okamžitě si vezmete z nabídky pod ostrovem **1 libovolný měděný poklad** a hned ho položíte na loď. 
-        Pokud mapu zakryjete jinou barvou kočky, mapa je znehodnocena a žádný bonus nedostanete.
+        * **Mapy:** Na lodi máte 5 barevných map. Pokud na políčko s mapou položíte kočku **přesně stejné barvy**, okamžitě si vezmete z nabídky **1 libovolný měděný poklad** a hned ho položíte na loď (opět musí dodržet pravidlo dotyku).
+        * **Oshaxové:** Hnědé dílky získáte ve Fázi 5. Fungují jako žolíci. Když Oshaxe položíte na loď, vezmete si z krabice dřevěnou figurku kočky barvy, kterou zrovna potřebujete (aby se vám hodila do rodiny), a položíte ji na Oshaxe. Odteď je to kočka této barvy!
         """)
         
     st.success("""
@@ -212,19 +228,28 @@ elif sekce_menu == "Bodování a kalkulačka":
     with col1:
         st.subheader("➕ Kladné body")
         rodiny_b = st.number_input("Body za kočičí rodiny (sečtěte z lodi):", min_value=0, value=0, step=1)
-        with st.expander("Zobrazit bodovací tabulku rodin"):
+        with st.expander("🐈 Co to je ta rodina? (Vysvětlení pro děti i nováčky)"):
             st.markdown("""
-            (Rodina = sousedící dílky stejné barvy)
-            * **3 kočky:** 8 bodů
-            * **4 kočky:** 11 bodů
-            * **5 koček:** 15 bodů
-            * **6 koček:** 20 bodů
-            * **7 koček:** 25 bodů
-            * **Každá další kočka v rodině:** +5 bodů
+            Představte si, že kočičky stejné barvy jsou parta kamarádů ze školky, kteří se musí držet za tlapky. 
+            
+            * Aby to byla **rodina**, musí se u sebe sejít **alespoň 3 kočičky stejné barvy**.
+            * "Držet se za tlapky" znamená, že se jejich dílky musí dotýkat **celou jednou stranou čtverečku**. 
+            * **DŮLEŽITÉ:** Kočičky mohou klidně tvořit dlouhého "hada"! Nemusí se všechny dotýkat jedné jediné kočky uprostřed, stačí, když na sebe prostě postupně navazují jako články řetězu.
+            * Pokud se dvě kočičky dotýkají jenom růžkem (šikmo), tak se nedrží, nepatří k sobě a netvoří rodinu!
+            * Do rodiny se počítá i Oshax, na kterém leží figurka stejné barvy.
+            
+            **Kolik je to bodů?**
+            * 3 kamarádi (kočky) = **8 bodů**
+            * 4 kamarádi = **11 bodů**
+            * 5 kamarádů = **15 bodů**
+            * 6 kamarádů = **20 bodů**
+            * 7 kamarádů = **25 bodů**
+            * Za každého dalšího kamaráda v obří partě je to +5 bodů navíc.
+            * *Méně než 3 kočky se nepočítají vůbec (0 bodů).*
             """)
         
         poklady_b = st.number_input("Počet naložených Zlatých pokladů:", min_value=0, value=0, step=1)
-        st.caption("Každý naložený zlatý poklad vám přinese fixně **3 body**.")
+        st.caption("Každý naložený zlatý poklad (ty velké s drahokamy) vám přinese fixně **3 body**. Měděné poklady jsou za 0 bodů.")
         
         ukoly_b = st.number_input("Celkový zisk bodů ze všech splněných úkolů:", min_value=0, value=0, step=1)
         
