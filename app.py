@@ -43,7 +43,7 @@ if st.session_state.aktualni_stranka == 'Menu':
             st.session_state.aktualni_stranka = 'MrtvyMuz'
             st.rerun()
     with col3:
-        if st.button("🌊 atlantis", use_container_width=True):
+        if st.button("🌊 Atlantis", use_container_width=True):
             st.session_state.aktualni_stranka = 'Atlantis'
             st.rerun()
             
@@ -71,5 +71,5 @@ elif st.session_state.aktualni_stranka == 'MrtvyMuz':
         exec(f.read(), globals())
 
 elif st.session_state.aktualni_stranka == 'Atlantis':
-    with open("atlantis.py", encoding="utf-8") as f:
+    with open("Atlantis.py", encoding="utf-8") as f:
         exec(f.read(), globals())
