@@ -96,8 +96,8 @@ if st.session_state.aktualni_stranka == 'Menu':
             st.session_state.aktualni_stranka = 'MrtvyMuz'
             st.rerun()
     with col3:
-        if st.button("🌊 atlantida", use_container_width=True):
-            st.session_state.aktualni_stranka = 'atlantida'
+        if st.button("🌊 atlantis", use_container_width=True):
+            st.session_state.aktualni_stranka = 'atlantis'
             st.rerun()
             
     st.write("") # Mezera mezi řádky
@@ -190,8 +190,8 @@ elif st.session_state.aktualni_stranka == 'MrtvyMuz':
     with open("Karty.py", encoding="utf-8") as f:
         exec(f.read(), globals())
 
-elif st.session_state.aktualni_stranka == 'atlantida':
-    with open("atlantida.py", encoding="utf-8") as f:
+elif st.session_state.aktualni_stranka == 'atlantis':
+    with open("atlantis.py", encoding="utf-8") as f:
         exec(f.read(), globals())
 
 elif st.session_state.aktualni_stranka == 'small':
