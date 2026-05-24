@@ -1,7 +1,7 @@
 import streamlit as st
 import os
 
-# Konfigurace
+# Konfigurace - layout="wide" zajistí roztažení na celou šířku PC
 st.set_page_config(
     page_title="Moje Deskovky", 
     page_icon="🎲", 
@@ -9,11 +9,14 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# CSS pro skrytí nepotřebného
+# OPRAVENÉ CSS:
+# 1. Necháme hlavičku (header) existovat, jinak se vše zúží.
+# 2. Skryjeme jen tlačítka "Deploy" a "View Source", která tě štvala.
 hide_st_style = """
             <style>
+            #MainMenu {visibility: hidden;}
+            header {visibility: visible;} 
             footer {visibility: hidden;}
-            header {visibility: hidden !important;}
             [data-testid="stToolbar"] {visibility: hidden !important;}
             [data-testid="stDecoration"] {visibility: hidden !important;}
             </style>
@@ -48,19 +51,23 @@ if st.session_state.aktualni_stranka == 'Menu':
             st.rerun()
             
     st.divider()
-    st.info("ℹ️ **Jak na pravidla a rady:**")
-    st.write("Klikněte na hru výše. Poté uvidíte pravidla a v levém menu (na mobilu pod ikonou čárek v rohu) najdete strategické tipy pro nováčky.")
+    st.info("ℹ️ **Navigace:** Po výběru hry hledejte strategické tipy v levém bočním panelu.")
     st.stop()
 
 # ==========================================
-# SIDEBAR A HRY
+# SIDEBAR (Boční panel pro rady)
 # ==========================================
 with st.sidebar:
     st.subheader("📋 RADY PRO HRÁČE")
-    st.button("⬅️ Zpět na hlavní menu", on_click=zpet_do_menu, use_container_width=True)
+    if st.button("⬅️ Zpět na hlavní menu", use_container_width=True):
+        st.session_state.aktualni_stranka = 'Menu'
+        st.rerun()
     st.markdown("---")
-    st.write("Zde najdete strategické tipy, které se dynamicky mění podle hry.")
+    st.write("Zde najdete strategické tipy, které se mění podle vybrané hry.")
 
+# ==========================================
+# ZOBRAZENÍ KONKRÉTNÍ HRY
+# ==========================================
 if st.session_state.aktualni_stranka == 'Kocky':
     with open("Kocky.py", encoding="utf-8") as f:
         exec(f.read(), globals())
