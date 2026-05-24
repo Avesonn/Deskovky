@@ -42,7 +42,7 @@ if st.session_state.aktualni_stranka == 'Menu':
             st.rerun()
             
     with col3:
-        if st.button("🌊 Atlantis", use_container_width=True):
+        if st.button("🌊 atlantis", use_container_width=True):
             st.session_state.aktualni_stranka = 'Atlantis'
             st.rerun()
             
