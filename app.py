@@ -114,7 +114,9 @@ if st.session_state.aktualni_stranka == 'Menu':
             st.session_state.aktualni_stranka = 'pokoj'
             st.rerun()
     with col6:
-        st.empty() # Necháme prázdné pro hezké zarovnání zleva doleva
+        if st.button("🛡️ Dusehrdiny", use_container_width=True):
+            st.session_state.aktualni_stranka = 'dusehrdiny'
+            st.rerun()
         
     st.divider()
     st.info("ℹ️ **Navigace:** Po výběru hry najdete strategické tipy v postranním panelu (na mobilu vlevo nahoře pod ikonou menu).")
@@ -199,4 +201,8 @@ elif st.session_state.aktualni_stranka == 'small':
 
 elif st.session_state.aktualni_stranka == 'pokoj':
     with open("Pokoj.py", encoding="utf-8") as f:
+        exec(f.read(), globals())
+
+elif st.session_state.aktualni_stranka == 'dusehrdiny':
+    with open("Dusehrdiny.py", encoding="utf-8") as f:
         exec(f.read(), globals())
