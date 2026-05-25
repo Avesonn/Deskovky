@@ -79,6 +79,21 @@ if sekce_menu == "1. Cíl hry a Základy":
         **🛑 Ukončení tahu (Beru kořist)**
         Pokud máte v řadě vyložené karty a bojíte se, že další kartou už "balonek praskne", prostě řeknete: „Končím!“ Všechny karty z řady si vezmete k sobě a přidáte je do své bezpečné Kořisti. Tím jste svůj tah úspěšně dokončili.
         """)
+        
+    st.divider()
+    
+    # NOVÁ SEKCE: ZLATÉ PRAVIDLO O USPOŘÁDÁNÍ KARET
+    st.subheader("🏴‍☠️ Zlaté pravidlo: Jak si uspořádat nasbíraný poklad")
+    st.markdown("""
+    Mnoho nováčků dělá chybu, že si získané karty schovává na jednu hromádku lícem dolů. **Nedělejte to!** Vaše sbírka karet (Kořist) před vámi na stole musí být **vždy otevřená, roztříděná podle barev a přehledná pro všechny hráče u stolu**.
+    """)
+    
+    with st.expander("Proč musí na moji kořist všichni vidět už během hry?"):
+        st.write("""
+        1. **Krádeže a ničení (Šavle a Dělo):** Soupeři musí vidět, co máte, aby na vás mohli zacílit své útoky. Když soupeř zahraje **Dělo** (zničení karty) nebo **Šavli** (krádež), musí vidět, jaké karty a s jakými čísly vám může sebrat.
+        2. **Okamžité efekty z vaší kořisti:** Karta **Hák** vás nutí zahrát kartu z vaší vlastní kořisti a vyhodnotit její efekt. Musíte tedy přesně vědět, co už máte nasbíráno.
+        3. **Taktika a počítání:** Vy i soupeři vidíte, jaké karty už ze hry zmizely, a můžete podle toho odhadovat, jak velká je šance na vytažení konkrétního symbolu.
+        """)
 
 # --- 2. PŘÍPRAVA HRY ---
 elif sekce_menu == "2. Příprava hry":
